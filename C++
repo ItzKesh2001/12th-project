@@ -1,0 +1,655 @@
+#include<iostream.h>
+#include<conio.h>
+#include<string.h>
+#include<fstream.h>
+class restaurant
+{	char name[30],loc;
+
+	public:
+	void assignloc(char nm[],char loctn)
+	{
+		loc=loctn;
+		strcpy(name,nm);
+
+	}
+	void dispname()
+	{cout<<"\n\n\t\tWELCOME TO "<<name<<"!!!";
+	getch();}
+
+	char place()
+	{return loc;}
+};
+class food
+{	char s1[30],s2[30],m1[30],m2[30],bev[30],loc;
+	int s1p,s2p,m1p,m2p,bevp;
+	public:
+	void locset(char lc)
+	{ loc=lc;}
+
+	char lcret()
+	{return loc;}
+	void assignfood(char st1[],char st2[],char mn1[],char mn2[],char bv[])
+	{       strcpy(s1,st1);
+		strcpy(s2,st2);
+		strcpy(m1,mn1);
+		strcpy(m2,mn2);
+		strcpy(bev,bv);
+	}
+	void assigncost(int s1c,int s2c,int m1c,int m2c,int bevc)
+	{	s1p=s1c;
+		s2p=s2c;
+		m1p=m1c;
+		m2p=m2c;
+		bevp=bevc;
+	}
+
+
+	int itemcost(int choice)
+	{       int price;
+		switch(choice)
+		{	case 1: price=s1p;
+				break;
+			case 2: price=s2p;
+				break;
+			case 3: price=m1p;
+				break;
+			case 4: price=m2p;
+				break;
+			case 5: price=bevp;
+				break;
+		}
+		return price;
+	}
+	void itemdisp()
+	{
+		cout<<"\n\n\t\tSTARTERS"<<endl;
+		cout<<"1) "<<s1<<"\t\t"<<s1p;
+		cout<<"\n2) "<<s2<<"\t"<<s2p<<endl;
+		cout<<"\n\t\tMAIN COURSE"<<endl;
+		cout<<"3) "<<m1<<"\t\t"<<m1p;
+		cout<<"\n4) "<<m2<<"\t\t"<<m2p<<endl;
+		cout<<"\n\t\tDRINK"<<endl;
+		cout<<"5) "<<bev<<"\t\t"<<bevp<<endl;
+		cout<<"6) MAIN MENU";
+		cout<<"\nCHOICE: ";
+	}
+};
+
+void nlassign()
+{	restaurant r[5];
+	char name[20],loc;
+	ofstream fout("rest.dat",ios::binary|ios::out);
+	for(int i=0;i<5;i++)
+	{switch(i)
+	 {	case 0: strcpy(name,"AMBISWAMMY'S");loc='A';
+			r[i].assignloc(name,loc); break;
+		case 1: strcpy(name,"CEYLON BAKEHOUSE");loc='B';
+			r[i].assignloc(name,loc); break;
+		case 2: strcpy(name,"REAL ARABIA");loc='C';
+			r[i].assignloc(name,loc); break;
+		case 3: strcpy(name,"OOTTUPURRA");loc='D';
+			r[i].assignloc(name,loc); break;
+		case 4: strcpy(name,"CROWNE PLAZA");loc='E';
+			r[i].assignloc(name,loc); break;
+	 }
+	 fout.write((char*)&r[i],sizeof(r[i]));
+	}
+	fout.close();
+}
+
+void foodassign()
+{	food f[5];
+	char s1[30],s2[30],m1[35],m2[35],b[30],loc;
+	ofstream fout("food.dat",ios::binary|ios::out);
+	for(int i=0;i<5;i++)
+	{switch(i)
+	 {	case 0: strcpy(s1,"PAPAD\t");
+			strcpy(s2,"SWEET CORN SOUP\t");
+			strcpy(m1,"CHILLY PAROTA");
+			strcpy(m2,"CHICKEN BIRIYANI");
+			strcpy(b,"LEMON JUICE\t");  loc='A';
+
+			f[i].assignfood(s1,s2,m1,m2,b);
+			f[i].assigncost(16,50,40,90,30);
+			f[i].locset(loc);
+			break;
+
+		case 1: strcpy(s1,"ALOO CHAAT\t");
+			strcpy(s2,"TANDOORI CHICKEN\t");
+			strcpy(m1,"PAROTA\t");
+			strcpy(m2,"FRIED RICE\t");
+			strcpy(b,"MINT JUICE\t"); loc='B';
+			f[i].assignfood(s1,s2,m1,m2,b);
+			f[i].assigncost(45,120,25,80,40);
+			f[i].locset(loc);
+			break;
+
+		case 2: strcpy(s1,"PANEER FRY\t");
+			strcpy(s2,"CHICKEN LOLLIPOP\t");
+			strcpy(m1,"GRILLED CHICKEN");
+			strcpy(m2,"KASHMIRI PULAV");
+			strcpy(b,"ORANGE JUICE\t"); loc='C';
+			f[i].assignfood(s1,s2,m1,m2,b);
+			f[i].assigncost(65,75,150,130,30);
+			f[i].locset(loc);
+			break;
+
+		case 3: strcpy(s1,"VEG CUTLET\t");
+			strcpy(s2,"SWEET CORN SOUP\t");
+			strcpy(m1,"POORI MASALA\t");
+			strcpy(m2,"MASALA DOSA\t");
+			strcpy(b,"TEA\t\t"); loc='D';
+			f[i].assignfood(s1,s2,m1,m2,b);
+			f[i].assigncost(20,50,60,65,15);
+			f[i].locset(loc);
+			break;
+
+		case 4: strcpy(s1,"SPRING ROLL\t");
+			strcpy(s2,"CHICKEN TIKKA\t");
+			strcpy(m1,"PANEER KATHI ROLL");
+			strcpy(m2,"CROWNE CLUB SANDWICH");
+			strcpy(b,"TENDER COCONUT WATER");loc='E';
+			f[i].assignfood(s1,s2,m1,m2,b);
+			f[i].assigncost(245,245,295,325,95);
+			f[i].locset(loc);
+			break;
+	 }
+	 fout.write((char*)&f[i],sizeof(f[i]));
+	}
+	fout.close();
+}
+
+
+
+void main()
+{clrscr();
+ food f;
+ restaurant r;
+ nlassign(); foodassign();
+ float bill=0;
+ int chr,z,chr1=1,chf,cost=0,noi=0,maxitm=0,c=1,ordercost[9],itemno[9];
+ int cmp=0,dqty,itemcost[9];
+ char loc,chs,order[8][30],cart='y';
+ while(cart=='y'||cart=='Y')
+ {while(chr1!=4)
+ { cout<<"\n\n\t\t****WELCOME TO DOORSTEP DELICACIES****";
+ cout<<"\n\n1) PLACE ORDER";
+ cout<<"\n2) DELETE AN ITEM\
+ \n3) VIEW CART";
+ if(maxitm==8)
+ cout<<"\n4) CHECKOUT\t\tCART: "<<maxitm<<" ITEMS(MAX!)";
+ else
+ cout<<"\n4) CHECKOUT\t\tCART: "<<maxitm<<" ITEMS";
+ cout<<"\n\nCHOICE(1-4): ";
+ cin>>chr1;
+ clrscr();
+ if(chr1==1)
+ { fstream rest("rest.dat",ios::in|ios::binary);
+ fstream food("food.dat",ios::in|ios::binary);
+ rest.seekg(0); food.seekg(0);
+ cout<<"\n\n\t\WHERE WOULD YOU LIKE TO ORDER FROM\
+ \n1) AMBISWAMMY'S\
+ \n2) CEYLON BAKEHOUSE\
+ \n3) REAL ARABIA\
+ \n4) OOTTUPURRA\
+ \n5) CROWNE PLAZA\n\
+ \n6) MAIN MENU\n\
+ \nCHOICE: ";
+ cin>>chr;
+ clrscr();
+  if(chr>6||chr==0)
+  {cout<<"\nINVALID INPUT";getch();clrscr();}
+
+  if(chr==1)
+  {  loc='A'; chs='y';
+	   while(rest)
+	   { rest.read((char*)&r,sizeof(r));
+	     if(r.place()==loc)
+	     {
+	       while(food)
+	       { food.read((char*)&f,sizeof(f));
+		 if(f.lcret()==loc)
+		 { while(chs=='y'||chs=='Y')
+		  {  r.dispname();
+		   cout<<"\n\n\tWHAT WOULD YOU LIKE TO ORDER?"<<endl;
+		   cout<<"\n\t\t(MAX ITEMS: 8\n\t\tCURRENT ITEMS: "<<maxitm<<")";
+		   f.itemdisp();
+		   cin>>chf;
+		   switch(chf)
+		   {	case 1: strcpy(order[c],"PAPAD\t");
+				break;
+			case 2: strcpy(order[c],"SWEET CORN SOUP");
+				break;
+			case 3: strcpy(order[c],"CHILLY PAROTA");
+				break;
+			case 4: strcpy(order[c],"CHICKEN BIRIYANI");
+				break;
+			case 5: strcpy(order[c],"LEMON JUICE\t");
+				break;
+		   }
+		   if(chf>6)
+		    cout<<"INVALID INPUT";
+		    if(chf==6)
+		    {clrscr(); break;}
+		   cost=f.itemcost(chf);
+		   itemcost[c]=cost;
+		   cout<<"ENTER QUANTITY: ";
+		   cin>>noi;
+		   cost*=noi;
+		   maxitm+=noi;
+		   if(maxitm>8)
+		   {cout<<"MAX ITEMS REACHED! DID NOT ADD ITEMS!\n\n";
+		    maxitm-=noi;}
+		   else
+		   {bill+=cost;
+		     if(c>1)
+		     {	for(z=1;z<c;z++)
+			{if(strcmp(order[c],order[z])==0)
+			 cmp=1;break;}
+			 if(cmp==1)
+			 {ordercost[z]+=cost; itemno[z]+=noi;cmp=0;}
+			 else
+			 {ordercost[c]=cost; itemno[c]=noi;c++;}
+		    }
+		    else
+		    {ordercost[c]=cost; itemno[c]=noi;c++;}
+		   }
+		   cout<<"ORDER MORE?(Y/N): ";
+		   cin>>chs;
+		   clrscr();
+	       }
+	      }
+	       }
+	     }
+	   }
+ }
+ if(chr==2)
+ {loc='B';   chs='y';
+	   while(rest)
+	   { rest.read((char*)&r,sizeof(r));
+	     if(r.place()==loc)
+	     {
+	       while(food)
+	       { food.read((char*)&f,sizeof(f));
+		 if(f.lcret()==loc)
+		 { while(chs=='y'||chs=='Y')
+		   {   r.dispname();
+		    cout<<"\n\n\tWHAT WOULD YOU LIKE TO ORDER?";
+		    cout<<"\n\t\t(MAX ITEMS: 8\n\t\tCURRENT ITEMS: "<<maxitm<<")";
+		   f.itemdisp();
+		   cin>>chf;
+		    switch(chf)
+		   {	case 1: strcpy(order[c],"ALOO CHAAT\t");
+				break;
+			case 2: strcpy(order[c],"TANDOORI CHICKEN");
+				break;
+			case 3: strcpy(order[c],"PAROTA\t");
+				break;
+			case 4: strcpy(order[c],"FRIED RICE\t");
+				break;
+			case 5: strcpy(order[c],"MINT JUICE\t");
+				break;
+		   }
+		    if(chf>6)
+		    cout<<"INVALID INPUT";
+		    if(chf==6)
+		    {clrscr(); break;}
+		   cost=f.itemcost(chf);
+		   itemcost[c]=cost;
+		   cout<<"ENTER QUANTITY: ";
+		   cin>>noi;
+		   cost*=noi;
+		   maxitm+=noi;
+		   if(maxitm>8)
+		   {cout<<"MAX ITEMS REACHED! DID NOT ADD ITEMS!\n\n";
+		    maxitm-=noi;}
+		   else
+		   {bill+=cost;
+		     if(c>1)
+		     {	for(z=1;z<c;z++)
+			{if(strcmp(order[c],order[z])==0)
+			 cmp=1;break;}
+			 if(cmp==1)
+			 {ordercost[z]+=cost; itemno[z]+=noi;cmp=0;}
+			 else
+			 {ordercost[c]=cost; itemno[c]=noi;c++;}
+		     }
+		    else
+		    {ordercost[c]=cost; itemno[c]=noi;c++;}
+		    }
+		   cout<<"ORDER MORE?(Y/N): ";
+		   cin>>chs;
+		   clrscr();
+		 }
+		 }
+	       }
+	     }
+	   }
+ }
+ if(chr==3)
+ { loc='C';  chs='y';
+	   while(rest)
+	   { rest.read((char*)&r,sizeof(r));
+	     if(r.place()==loc)
+	     { while(food)
+	       { food.read((char*)&f,sizeof(f));
+		 if(f.lcret()==loc)
+		 { while(chs=='y'||chs=='Y')
+		  {  r.dispname();
+		  cout<<"\n\n\tWHAT WOULD YOU LIKE TO ORDER?";
+		  cout<<"\n\t\t(MAX ITEMS: 8\n\t\tCURRENT ITEMS: "<<maxitm<<")";
+		   f.itemdisp();
+		   cin>>chf;
+		    switch(chf)
+		   {	case 1: strcpy(order[c],"PANEER FRY\t");
+				break;
+			case 2: strcpy(order[c],"CHICKEN LOLLIPOP");
+				break;
+			case 3: strcpy(order[c],"GRILLED CHICKEN");
+				break;
+			case 4: strcpy(order[c],"KASHMIRI PULAV");
+				break;
+			case 5: strcpy(order[c],"ORANGE JUICE\t");
+				break;
+		   }
+		    if(chf>6)
+		    cout<<"INVALID INPUT";
+		    if(chf==6)
+		    {clrscr(); break;}
+		   cost=f.itemcost(chf);
+		   itemcost[c]=cost;
+		   cout<<"ENTER QUANTITY: ";
+		   cin>>noi;
+		   cost*=noi;
+		   maxitm+=noi;
+		   if(maxitm>8)
+		   {cout<<"MAX ITEMS REACHED! DID NOT ADD ITEMS!\n\n";
+		    maxitm-=noi;}
+		   else
+		   {bill+=cost;
+		     if(c>1)
+		     {	for(z=1;z<c;z++)
+			{if(strcmp(order[c],order[z])==0)
+			 cmp=1;break;}
+			 if(cmp==1)
+			 {ordercost[z]+=cost; itemno[z]+=noi;cmp=0;}
+			 else
+			 {ordercost[c]=cost; itemno[c]=noi;c++;}
+		     }
+		    else
+		    {ordercost[c]=cost; itemno[c]=noi;c++;}
+		   }
+		   cout<<"ORDER MORE?(Y/N): ";
+		   cin>>chs;
+		   clrscr();
+		   }
+		 }
+	       }
+	     }
+	   }
+ }
+  if(chr==4)
+ { loc='D';  chs='y';
+	   while(rest)
+	   { rest.read((char*)&r,sizeof(r));
+	     if(r.place()==loc)
+	     {
+	       while(food)
+	       { food.read((char*)&f,sizeof(f));
+		 if(f.lcret()==loc)
+		 { while(chs=='y'||chs=='Y')
+		   { r.dispname();
+		    cout<<"\n\n\t\tWHAT WOULD YOU LIKE TO ORDER?";
+		    cout<<"\n\t\t(MAX ITEMS: 8\n\t\tCURRENT ITEMS: "<<maxitm<<")";
+		   f.itemdisp();
+		   cin>>chf;
+		    switch(chf)
+		   {	case 1: strcpy(order[c],"VEG CUTLET\t");
+				break;
+			case 2: strcpy(order[c],"SWEET CORN SOUP");
+				break;
+			case 3: strcpy(order[c],"POORI MASALA\t");
+				break;
+			case 4: strcpy(order[c],"MASALA DOSA\t");
+				break;
+			case 5: strcpy(order[c],"TEA\t\t");
+				break;
+		   }
+		    if(chf>6)
+		    cout<<"INVALID INPUT";
+		    if(chf==6)
+		    {clrscr(); break;}
+		   cost=f.itemcost(chf);
+		   itemcost[c]=cost;
+		   cout<<"ENTER QUANTITY: ";
+		   cin>>noi;
+		   cost*=noi;
+		   maxitm+=noi;
+		   if(maxitm>8)
+		   {cout<<"\nMAX ITEMS REACHED! DID NOT ADD ITEMS!\n\n";
+		    maxitm-=noi;}
+		   else
+		   {bill+=cost;
+		     if(c>1)
+		     {	for(z=1;z<c;z++)
+			{if(strcmp(order[c],order[z])==0)
+			 cmp=1;break;}
+			 if(cmp==1)
+			 {ordercost[z]+=cost; itemno[z]+=noi;cmp=0;}
+			 else
+			 {ordercost[c]=cost; itemno[c]=noi;c++;}
+		    }
+		    else
+		    {ordercost[c]=cost; itemno[c]=noi;c++;}
+		   }
+		   cout<<"ORDER MORE?(Y/N): ";
+		   cin>>chs;
+		   clrscr();
+		   }
+		 }
+	       }
+	     }
+	   }
+ }
+  if(chr==5)
+  {loc='E';  chs='y';
+	   while(rest)
+	   { rest.read((char*)&r,sizeof(r));
+	     if(r.place()==loc)
+	     {
+	       while(food)
+	       { food.read((char*)&f,sizeof(f));
+		 if(f.lcret()==loc)
+		 { while(chs=='y'||chs=='Y')
+		  { r.dispname();
+		   cout<<"\n\n\tWHAT WOULD YOU LIKE TO ORDER?";
+		   cout<<"\n\t\t(MAX ITEMS: 8\n\t\tCURRENT ITEMS: "<<maxitm<<")";
+		   f.itemdisp();
+		   cin>>chf;
+		   switch(chf)
+		   {	case 1: strcpy(order[c],"VEG SPRING ROLL");
+				break;
+			case 2: strcpy(order[c],"CHICKEN TIKKA");
+				break;
+			case 3: strcpy(order[c],"PANEER KATHI ROLL");
+				break;
+			case 4: strcpy(order[c],"CROWNE CLUB SANDWICH");
+				break;
+			case 5: strcpy(order[c],"TENDER COCONUT WATER");
+				break;
+		   }
+		    if(chf>6)
+		    cout<<"INVALID INPUT";
+		    if(chf==6)
+		    {clrscr(); chs='n'; break;}
+		    cost=f.itemcost(chf);
+		    itemcost[c]=cost;
+		    cout<<"ENTER QUANTITY: ";
+		    cin>>noi;
+		    cost*=noi;
+		    maxitm+=noi;
+		    if(maxitm>8)
+		    {cout<<"\nMAX ITEMS REACHED! DID NOT ADD ITEMS\n\n!";
+		     maxitm-=noi;}
+		    else
+		    {bill+=cost;
+		     if(c>1)
+		     {	for(z=1;z<c;z++)
+			{if(strcmp(order[c],order[z])==0)
+			 cmp=1;break;}
+			 if(cmp==1)
+			 {ordercost[z]+=cost; itemno[z]+=noi;cmp=0;}
+			 else
+			 {ordercost[c]=cost; itemno[c]=noi;c++;}
+		    }
+		    else
+		    {ordercost[c]=cost; itemno[c]=noi;c++;}
+		    }
+		   cout<<"ORDER MORE?(Y/N): ";
+		   cin>>chs;
+		   clrscr();
+		   }
+		 }
+	       }
+	     }
+	   }
+  }
+  food.close();
+  rest.close();
+ }
+  if(chr1==2)
+  { if(maxitm==0)
+    {cout<<"\n\tYOUR CART IS EMPTY!";getch();clrscr();}
+    else
+    { int del;
+      cout<<"\n\nITEM\t\t\t\tQty\t\tCost\n\n";
+      for(int i=1;i<c;i++)
+      {cout<<i<<") "<<order[i]<<"\t\t"<<itemno[i]<<"\t\t"<<ordercost[i]<<endl;}
+      cout<<"0) RETURN"<<endl;
+      cout<<"\n\nENTER ITEM TO BE DELETED: ";
+      cin>>del;
+      if(del>=c)
+      {cout<<"\nINVALID INPUT\n";getch();clrscr();}
+
+      if(c==2&&del==1)
+      {         cout<<"\n\nENTER QUANTITY: ";
+		cin>>dqty;
+
+		if(dqty>itemno[del])
+		{cout<<"\nEXCEEDS LIMIT! ITEMS NOT DELETED!";
+		 getch(); clrscr();}
+
+		else
+		{	if(dqty==itemno[del])
+			{maxitm=0;bill=0;c=1;
+			cout<<"\nITEM HAS BEEN DELETED!";
+			getch(); clrscr();}
+			else
+			{maxitm-=dqty; itemno[del]-=dqty;
+			ordercost[del]-=(itemcost[del]*dqty);
+			bill-=(itemcost[del]*dqty);}
+			cout<<"\nITEMS HAVE BEEN DELETED!";
+			getch(); clrscr();
+		}
+      }
+
+      if(c>2&&del<c)
+      {
+       if(del!=0)
+       {        cout<<"\n\nENTER QUANTITY: ";
+		cin>>dqty;
+
+		if(dqty>itemno[del])
+		{cout<<"\nEXCEEDS LIMIT! ITEMS NOT DELETED!";
+		 getch(); clrscr();}
+
+		else
+		{       if(dqty==itemno[del])
+			{
+			 maxitm-=itemno[del]; bill-=ordercost[del];
+			 for(int j=del;j<c-1;j++)
+			 {	strcpy(order[j],order[j+1]);
+				ordercost[j]=ordercost[j+1];
+				itemno[j]=itemno[j+1];
+			 } c--;
+				cout<<"\nITEM HAS BEEN DELETED!";
+			getch(); clrscr();
+			}
+			else
+			{
+			  maxitm-=dqty; itemno[del]-=dqty;
+			  ordercost[del]-=(itemcost[del]*dqty);
+			  bill-=(itemcost[del]*dqty);
+			  cout<<"\nITEMS HAVE BEEN DELETED!";
+			  getch(); clrscr();
+			}
+		 }
+       }
+
+       else
+       {if(del>(c+1))
+	{ cout<<"INVALID INPUT"; getch(); clrscr();}
+	  else
+	  clrscr();
+       }
+      }
+    }
+  }
+
+ if(chr1==3)
+ {  cout<<"\n\nITEM\t\t\t\tQTY\t\tCOST\n\n";
+      for(int i=1;i<c;i++)
+      {cout<<i<<") "<<order[i]<<"\t\t"<<itemno[i]<<"\t\t"<<ordercost[i]<<endl;}
+       cout<<"_____________________________________________________";
+       cout<<"\nTOTAL\t\t\t\t"<<maxitm<<"\t\t"<<bill<<endl;
+       getch();
+       clrscr();
+ }
+ if(chr1>4||chr1==0)
+ {cout<<"INVALID INPUT"<<endl; getch(); clrscr();}
+ }
+ clrscr();
+ if(maxitm!=0)
+ {
+	cout<<"\n\nPROVIDE US WITH THE FOLLOWING DETAILS\n";
+	 char name[30],add[80],num[15];
+	 cout<<"FULL NAME: ";
+	 cin>>name;
+	 cout<<"PINCODE: ";
+	 cin>>add;
+	 cout<<"PHONE NUMBER: ";
+	cin>>num;
+ }
+ clrscr();
+ if(maxitm!=0)
+ {
+	 cout<<"\nYOUR ORDER IS SHOWN BELOW:\n";
+	 cout<<"ITEM\t\t\t\tQTY\t\tCOST\n\n";
+	 for(int i=1;i<c;i++)
+	{cout<<i<<") "<<order[i]<<"\t\t"<<itemno[i]<<"\t\t";
+	cout<<ordercost[i]<<endl;}
+	 cout<<"_____________________________________________________";
+	 cout<<"\nTOTAL\t\t\t\t"<<maxitm<<"\t\t"<<bill<<endl;
+	 cout<<"\nDELIVERY CHARGE: 20"<<endl;
+	 cout<<"\nOVERALL COST: "<<(bill+20)<<endl;
+	 getch();
+	 cout<<"\n\n\tTHANK YOU FOR ORDERING WITH DOORSTEP DELICACIES!\
+		\n\t\YOUR FOOD WILL ARRIVE SHORTLY!\
+		\n\tWISHING YOU A VERY HAPPY DAY AHEAD! HAPPY EATS!";
+		cart='n';
+	 getch();
+ }
+ else
+ {chr1=0;
+  cout<<"\n\n\n\n\n\t\tYOUR CART IS EMPTY!\
+  \n\n\t\tWOULD YOU LIKE TO ORDER?(Y/N): ";
+  cin>>cart;
+  if(cart=='n'||cart=='N')
+  {cout<<"\n\n\t\tHOPE YOU HAVE A GREAT DAY AHEAD!"; getch();
+  break;}
+  else
+  {cart='y';clrscr();}
+  }
+ }
+}
+
